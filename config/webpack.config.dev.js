@@ -294,7 +294,7 @@ module.exports = {
           // Chains the stylus-loader with the css-loader and the style-loader
           // to immediately apply all styles to the DOM.
           // By default we support Stylus Modules with the
-          // extensions .module.stylus
+          // extensions .module.styl
           {
             test: stylusRegex,
             exclude: stylusModuleRegex,
