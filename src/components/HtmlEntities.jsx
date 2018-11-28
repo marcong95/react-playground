@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import '../styles/HtmlEntities.styl'
 
 export default class HtmlEntities extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       html: '',
@@ -51,7 +51,7 @@ export default class HtmlEntities extends Component {
     })
   }
 
-  textInput = e =>  {
+  textInput = e => {
     const text = e.target.value
     this.midTextarea.innerText = text
     const html = this.midTextarea.innerHTML
