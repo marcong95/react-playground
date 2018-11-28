@@ -35,8 +35,6 @@ const useTypeScript = fs.existsSync(paths.appTsConfig);
 // style files regexes
 const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
-const sassRegex = /\.(scss|sass)$/;
-const sassModuleRegex = /\.module\.(scss|sass)$/;
 const stylusRegex = /\.styl$/;
 const stylusModuleRegex = /\.module\.styl$/;
 
@@ -292,17 +290,17 @@ module.exports = {
               getLocalIdent: getCSSModuleLocalIdent,
             }),
           },
-          // Opt-in support for STYLUS (using .styl extensions).
+          // Opt-in support for Stylus (using .styl extensions).
           // Chains the stylus-loader with the css-loader and the style-loader
           // to immediately apply all styles to the DOM.
-          // By default we support STYLUS Modules with the
+          // By default we support Stylus Modules with the
           // extensions .module.stylus
           {
             test: stylusRegex,
             exclude: stylusModuleRegex,
             use: getStyleLoaders({ importLoaders: 2 }, 'stylus-loader'),
           },
-          // Adds support for CSS Modules, but using STYLUS
+          // Adds support for CSS Modules, but using Stylus
           // using the extension .module.styl
           {
             test: stylusModuleRegex,

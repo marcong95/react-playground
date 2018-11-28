@@ -53,8 +53,8 @@ const useTypeScript = fs.existsSync(paths.appTsConfig);
 // style files regexes
 const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
-const sassRegex = /\.(scss|sass)$/;
-const sassModuleRegex = /\.module\.(scss|sass)$/;
+const stylusRegex = /\.styl$/;
+const stylusModuleRegex = /\.module\.styl$/;
 
 // common function to get style loaders
 const getStyleLoaders = (cssOptions, preProcessor) => {
@@ -260,7 +260,7 @@ module.exports = {
             options: {
               formatter: require.resolve('react-dev-utils/eslintFormatter'),
               eslintPath: require.resolve('eslint'),
-              
+
             },
             loader: require.resolve('eslint-loader'),
           },
@@ -293,7 +293,7 @@ module.exports = {
               customize: require.resolve(
                 'babel-preset-react-app/webpack-overrides'
               ),
-              
+
               plugins: [
                 [
                   require.resolve('babel-plugin-named-asset-import'),
@@ -331,7 +331,7 @@ module.exports = {
               cacheDirectory: true,
               // Save disk space when time isn't as important
               cacheCompression: true,
-              
+
               // If an error happens in a package, it's possible to be
               // because it was compiled. Thus, we don't want the browser
               // debugger to show the original code. Instead, the code
@@ -368,20 +368,20 @@ module.exports = {
               getLocalIdent: getCSSModuleLocalIdent,
             }),
           },
-          // Opt-in support for SASS. The logic here is somewhat similar
-          // as in the CSS routine, except that "sass-loader" runs first
-          // to compile SASS files into CSS.
-          // By default we support SASS Modules with the
-          // extensions .module.scss or .module.sass
+          // Opt-in support for Stylus. The logic here is somewhat similar
+          // as in the CSS routine, except that "stylus-loader" runs first
+          // to compile Stylus files into CSS.
+          // By default we support Stylus Modules with the
+          // extensions .module.scss or .module.styl
           {
-            test: sassRegex,
-            exclude: sassModuleRegex,
+            test: stylusRegex,
+            exclude: stylusModuleRegex,
             loader: getStyleLoaders(
               {
                 importLoaders: 2,
                 sourceMap: shouldUseSourceMap,
               },
-              'sass-loader'
+              'stylus-loader'
             ),
             // Don't consider CSS imports dead code even if the
             // containing package claims to have no side effects.
@@ -389,10 +389,10 @@ module.exports = {
             // See https://github.com/webpack/webpack/issues/6571
             sideEffects: true,
           },
-          // Adds support for CSS Modules, but using SASS
-          // using the extension .module.scss or .module.sass
+          // Adds support for CSS Modules, but using Stylus
+          // using the extension .module.scss or .module.styl
           {
-            test: sassModuleRegex,
+            test: stylusModuleRegex,
             loader: getStyleLoaders(
               {
                 importLoaders: 2,
@@ -400,7 +400,7 @@ module.exports = {
                 modules: true,
                 getLocalIdent: getCSSModuleLocalIdent,
               },
-              'sass-loader'
+              'stylus-loader'
             ),
           },
           // "file" loader makes sure assets end up in the `build` folder.
