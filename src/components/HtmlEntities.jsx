@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import '../styles/HtmlEntities.styl'
+import styles from '../styles/HtmlEntities.module.styl'
+
+console.log(styles)
 
 export default class HtmlEntities extends Component {
   constructor (props) {
@@ -19,13 +21,13 @@ export default class HtmlEntities extends Component {
         className="text-input-wrap">
         <textarea
           id="html-input"
-          className="text-input-textarea"
+          className={styles.textarea}
           rows="10"
           value={this.state.html}
           onChange={this.htmlInput}></textarea>
       </div>
       <div
-        className="text-input-labels">
+        className={styles.labelGroup}>
         <label htmlFor="html-input">HTML &uarr;</label>
         <label htmlFor="text-input">Text &darr;</label>
       </div>
@@ -33,7 +35,7 @@ export default class HtmlEntities extends Component {
         className="text-input-wrap">
         <textarea
           id="text-input"
-          className="text-input-textarea"
+          className={styles.textarea}
           rows="10"
           value={this.state.text}
           onChange={this.textInput}></textarea>
