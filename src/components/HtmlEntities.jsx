@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import styles from '../styles/HtmlEntities.module.styl'
 
-console.log(styles)
-
 export default class HtmlEntities extends Component {
   constructor (props) {
     super(props)

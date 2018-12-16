@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 
-import HtmlEntities from './components/HtmlEntities'
+import VibrationDemo from './components/VibrationDemo'
 
 export default class ReactPlayground extends Component {
   render () {
     return (
       <div className="react-playground">
-        <HtmlEntities />
+        <VibrationDemo />
       </div>
     )
   }
