@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import VibrationDemo from './components/VibrationDemo'
+import VibrationDemo from './gadgets/VibrationDemo'
 
 export default class ReactPlayground extends Component {
   render () {

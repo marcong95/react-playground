@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import styles from '../styles/HtmlEntities.module.styl'
+import styles from './HtmlEntities.module.styl'
 
 export default class HtmlEntities extends Component {
   constructor (props) {
