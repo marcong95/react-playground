@@ -1,0 +1,72 @@
+normal:
+  super: [fighting]
+  not: [ghost]
+
+fighting:
+  super: [flying, psychic]
+  notVery: [rock, bug, dark]
+
+flying:
+  super: [rock, electric, ice]
+  notVery: [fighting, bug, grass]
+  not: [ground]
+
+poison:
+  super: [ground, psychic]
+  notVery: [fighting, poison, bug, grass]
+
+ground:
+  super: [water, grass, ice]
+  notVery: [poison, rock]
+  not: [electric]
+
+rock:
+  super: [fighting, ground, steel, water, grass]
+  notVery: [normal, flying, poison, fire]
+
+bug:
+  super: [flying, rock, fire]
+  notVery: [fighting, ground, grass]
+
+ghost:
+  super: [ghost, dark]
+  notVery: [poison, bug]
+  not: [normal, fighting]
+
+steel:
+  super: [fighting, ground, fire]
+  notVery: [normal, flying, rock, bug, ghost, steel, grass, psychic, ice, dragon, dark]
+  not: [poison]
+
+fire:
+  super: [ground, rock, water]
+  notVery: [bug, steel, fire, grass, ice]
+
+water:
+  super: [grass, electric]
+  notVery: [steel, fire, water, ice]
+
+grass:
+  super: [flying, poison, bug, fire, ice]
+  notVery: [ground, water, grass, electric]
+
+electric:
+  super: [ground]
+  notVery: [flying, steel, electric]
+
+psychic:
+  super: [bug, ghost, dark]
+  notVery: [fighting, psychic]
+
+ice:
+  super: [fighting, rock, steel, fire]
+  notVery: [ice]
+
+dragon:
+  super: [ice, dragon]
+  notVery: [fire, water, grass, electric]
+
+dark:
+  super: [fighting, bug]
+  notVery: [ghost, dark]
+  not: [psychic]
