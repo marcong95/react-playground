@@ -2,20 +2,24 @@ const path = require('path')
 const _ = require('lodash')
 const projectConfig = require('../config/webpack.config.dev')
 
+const requiredExtensions = ['styl', 'yaml']
+const testRegex = re =>
+  _.some(requiredExtensions, ext => re.source.includes(ext));
+
 module.exports = (baseConfig, env, defaultConfig) => {
   const rules = projectConfig.module.rules
-  const { oneOf: styleRule } = rules.find(rule => rule.oneOf !== undefined)
-  const stylusRelevants = styleRule.filter(rule => {
+  const { oneOf: targetRules } = rules.find(rule => rule.oneOf !== undefined)
+  const requiredRules = targetRules.filter(rule => {
     if (rule.test instanceof Array) {
-      return _.some(rule.test, regex => regex.source.includes('styl'))
+      return _.some(rule.test, regex => testRegex(regex))
     } else if (rule.test instanceof RegExp) {
-      return rule.test.source.includes('styl')
+      return testRegex(rule.test)
     } else {
       return false
     }
   })
 
-  defaultConfig.module.rules.push(...stylusRelevants.map(
+  defaultConfig.module.rules.push(...requiredRules.map(
     rule => Object.assign({
       include: path.resolve(__dirname, '../src')
     }, rule)
