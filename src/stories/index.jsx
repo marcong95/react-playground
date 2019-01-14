@@ -4,7 +4,7 @@ import { action } from '@storybook/addon-actions'
 import { Button } from '@storybook/react/demo'
 
 import styles from './stories.module.styl'
-import pokeTypes from '../data/poke-types.yaml'
+import pokeTypes from '../data/pokeTypes.yaml'
 
 storiesOf('Basic demo', module)
   .add('Button with text', () => (

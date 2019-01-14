@@ -26,7 +26,7 @@ const table = [
   ['normal', 'normal', 'normal', 'normal', 'normal', 'normal', 'normal', 'normal', 'notVery', 'normal', 'normal', 'normal', 'normal', 'normal', 'normal', 'super', 'normal'],
   ['normal', 'notVery', 'normal', 'normal', 'normal', 'normal', 'normal', 'super', 'notVery', 'normal', 'normal', 'normal', 'normal', 'super', 'normal', 'normal', 'notVery']]
 
-const out = fs.createWriteStream(path.resolve(__dirname, 'poke-types.yaml'))
+const out = fs.createWriteStream(path.resolve(__dirname, 'pokeTypes.yaml'))
 
 types.forEach((defType, defIndex) => {
   out.write(`${defType}:\n`)

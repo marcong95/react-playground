@@ -3,7 +3,7 @@ normal:
   not: [ghost]
 
 fighting:
-  super: [flying, psychic]
+  super: [flying, psychic, fairy]
   notVery: [rock, bug, dark]
 
 flying:
@@ -63,10 +63,15 @@ ice:
   notVery: [ice]
 
 dragon:
-  super: [ice, dragon]
+  super: [ice, dragon, fairy]
   notVery: [fire, water, grass, electric]
 
 dark:
-  super: [fighting, bug]
+  super: [fighting, bug, fairy]
   notVery: [ghost, dark]
   not: [psychic]
+
+fairy:
+  super: [poison, steel]
+  notVery: [fighting, bug, dark]
+  not: [dragon]
