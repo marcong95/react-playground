@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styles from './PokeTypes.module.styl'
 
 import pokeTypes from '../data/pokeTypes.yaml'
+import pokeTypeColors from '../data/pokeTypeColors.yaml'
 
 const types = Object.keys(pokeTypes)
 
@@ -19,6 +20,8 @@ function effect(atkType, defType) {
   }, undefined)
 }
 
+const formatTypeName = type => type.replace(/(ing|ic)$/, '');
+
 export default class PokeTypes extends Component {
   render = () => (
     <div>
@@ -28,11 +31,15 @@ export default class PokeTypes extends Component {
             <th></th>
             {types.map(defType =>
               <th className={styles.defType}
-                key={defType}>{defType}</th>)}
+                style={{ color: pokeTypeColors[defType] }}
+                key={defType}
+                >{formatTypeName(defType)}</th>)}
           </tr>
           {types.map(atkType =>
-            <tr>
-              <td className={styles.atkType}>{atkType}</td>
+            <tr key={atkType}>
+              <td className={styles.atkType}
+                style={{ color: pokeTypeColors[atkType] }}
+                >{formatTypeName(atkType)}</td>
               {types.map(defType =>
                 <td className={styles.effect}
                   key={defType}>{effect(atkType, defType)}</td>)}

@@ -1,9 +1,20 @@
+.type
+  font-size 10px
+  // temporarily disable `font-variant-property` PostCSS feature in order to
+  // avoid confliction between `text-transform capitalize` and
+  // `font-feature-settings c2sc`
+  text-transform capitalize
+  font-variant small-caps
+
 .atkType
+  @extend .type
   text-align right
   font-weight bold
 
 .defType
+  @extend .type
   text-align center
+  min-width 4em
 
 .effect
   text-align center

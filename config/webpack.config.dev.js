@@ -62,6 +62,9 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
               flexbox: 'no-2009',
             },
             stage: 3,
+            features: {
+              'font-variant-property': false
+            }
           }),
         ],
       },

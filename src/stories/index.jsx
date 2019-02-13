@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { Button } from '@storybook/react/demo'
 
+import '../common/index.styl'
 import styles from './stories.module.styl'
 import pokeTypes from '../data/pokeTypes.yaml'
 
