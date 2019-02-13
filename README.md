@@ -4,7 +4,7 @@
 
 This is Marco's React playground.
 
-A rookie programmer called Marco plays React in this repo.
+A rookie programmer called Marco plays with React in this repo.
 
 ## The way to start playing
 
