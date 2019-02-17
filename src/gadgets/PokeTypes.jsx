@@ -22,6 +22,20 @@ function effect(atkType, defType) {
 
 const formatTypeName = type => type.replace(/(ing|ic)$/, '');
 
+const DefTypeName = def => (<th className={styles.defType}
+  style={{ color: pokeTypeColors[def] }}
+  key={def}
+  >{formatTypeName(def)}</th>)
+
+const AtkType = atk => (<tr key={atk}>
+  <td className={styles.atk}
+    style={{ color: pokeTypeColors[atk] }}
+    >{formatTypeName(atk)}</td>
+  {types.map(def =>
+    <td className={styles.effect}
+      key={def}>{effect(atk, def)}</td>)}
+</tr>)
+
 export default class PokeTypes extends Component {
   render = () => (
     <div>
@@ -29,22 +43,9 @@ export default class PokeTypes extends Component {
         <tbody>
           <tr>
             <th></th>
-            {types.map(defType =>
-              <th className={styles.defType}
-                style={{ color: pokeTypeColors[defType] }}
-                key={defType}
-                >{formatTypeName(defType)}</th>)}
+            {types.map(DefTypeName)}
           </tr>
-          {types.map(atkType =>
-            <tr key={atkType}>
-              <td className={styles.atkType}
-                style={{ color: pokeTypeColors[atkType] }}
-                >{formatTypeName(atkType)}</td>
-              {types.map(defType =>
-                <td className={styles.effect}
-                  key={defType}>{effect(atkType, defType)}</td>)}
-            </tr>)
-          }
+          {types.map(AtkType)}
         </tbody>
       </table>
     </div>
