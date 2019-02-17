@@ -28,7 +28,7 @@ const DefTypeName = def => (<th className={styles.defType}
   >{formatTypeName(def)}</th>)
 
 const AtkType = atk => (<tr key={atk}>
-  <td className={styles.atk}
+  <td className={styles.atkType}
     style={{ color: pokeTypeColors[atk] }}
     >{formatTypeName(atk)}</td>
   {types.map(def =>
