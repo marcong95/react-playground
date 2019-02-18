@@ -6,7 +6,7 @@ import pokeTypeColors from '../data/pokeTypeColors.yaml'
 
 const types = Object.keys(pokeTypes)
 
-function effect(atkType, defType) {
+const effect = (atkType, defType) => {
   return Object.entries({
     super: '+',
     notVery: '-',
@@ -22,12 +22,7 @@ function effect(atkType, defType) {
 
 const formatTypeName = type => type.replace(/(ing|ic)$/, '');
 
-const DefTypeName = def => (<th className={styles.defType}
-  style={{ color: pokeTypeColors[def] }}
-  key={def}
-  >{formatTypeName(def)}</th>)
-
-const AtkType = atk => (<tr key={atk}>
+const AtkType = ({type: atk}) => (<tr key={atk}>
   <td className={styles.atkType}
     style={{ color: pokeTypeColors[atk] }}
     >{formatTypeName(atk)}</td>
@@ -36,6 +31,10 @@ const AtkType = atk => (<tr key={atk}>
       key={def}>{effect(atk, def)}</td>)}
 </tr>)
 
+const DefTypeName = ({type: def}) => (<th className={styles.defType}
+  style={{ color: pokeTypeColors[def] }}
+  >{formatTypeName(def)}</th>)
+
 export default class PokeTypes extends Component {
   render = () => (
     <div>
@@ -43,9 +42,9 @@ export default class PokeTypes extends Component {
         <tbody>
           <tr>
             <th></th>
-            {types.map(DefTypeName)}
+            {types.map(t => (<DefTypeName type={t}></DefTypeName>))}
           </tr>
-          {types.map(AtkType)}
+          {types.map(t => (<AtkType type={t}></AtkType>))}
         </tbody>
       </table>
     </div>
