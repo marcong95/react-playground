@@ -8,9 +8,9 @@ const types = Object.keys(pokeTypes)
 
 const effect = (atkType, defType) => {
   return Object.entries({
-    super: '+',
-    notVery: '-',
-    not: '0'
+    super: '✓',
+    notVery: '✗',
+    not: '—'
   }).reduce((acc, [eff, text]) => {
     if ((pokeTypes[atkType][eff] || []).includes(defType)) {
       return text
@@ -22,18 +22,35 @@ const effect = (atkType, defType) => {
 
 const formatTypeName = type => type.replace(/(ing|ic)$/, '');
 
-const AtkType = ({type: atk}) => (<tr key={atk}>
-  <td className={styles.atkType}
+const HighlightContext = React.createContext({
+  atk: 'fighting',
+  def: 'dragon',
+  setHighlight: () => {}
+})
+
+const AtkTypeName = ({type: atk}) => (<td className={styles.atkType}
     style={{ color: pokeTypeColors[atk] }}
-    >{formatTypeName(atk)}</td>
-  {types.map(def =>
-    <td className={styles.effect}
-      key={def}>{effect(atk, def)}</td>)}
-</tr>)
+    >{formatTypeName(atk)}</td>)
 
 const DefTypeName = ({type: def}) => (<th className={styles.defType}
   style={{ color: pokeTypeColors[def] }}
   >{formatTypeName(def)}</th>)
+
+class EffectDisplay extends Component {
+  render = () => {
+    const {atk, def} = this.props
+    return (<td className={styles.effect}
+      onMouseEnter={this.handleHover}>{effect(atk, def)}</td>)
+  }
+
+  handleHover = event => {}
+}
+
+const AtkType = ({type: atk}) => (<tr key={atk}>
+  <AtkTypeName type={atk}></AtkTypeName>
+  {types.map(def => (<EffectDisplay key={def}
+    {...{atk, def}}></EffectDisplay>))}
+</tr>)
 
 export default class PokeTypes extends Component {
   render = () => (
