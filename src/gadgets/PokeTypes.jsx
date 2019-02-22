@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import classnames from 'classnames'
 import styles from './PokeTypes.module.styl'
 
 import pokeTypes from '../data/pokeTypes.yaml'
@@ -28,13 +29,17 @@ const HighlightContext = React.createContext({
   setHighlight: () => {}
 })
 
-const AtkTypeName = ({type: atk}) => (<td className={styles.atkType}
-    style={{ color: pokeTypeColors[atk] }}
-    >{formatTypeName(atk)}</td>)
-
-const DefTypeName = ({type: def}) => (<th className={styles.defType}
-  style={{ color: pokeTypeColors[def] }}
-  >{formatTypeName(def)}</th>)
+const getTypeName = side =>
+  ({type}) => (
+    <HighlightContext.Consumer>
+      {highlight => (
+        <th className={classnames(styles[`${side}Type`],
+          { [styles.highlighted]: type === highlight[side] })}
+          style={{ color: pokeTypeColors[type] }}
+          >{formatTypeName(type)}</th>
+      )}
+    </HighlightContext.Consumer>
+  )
 
 class EffectDisplay extends Component {
   render = () => {
@@ -42,9 +47,9 @@ class EffectDisplay extends Component {
     return (
       <HighlightContext.Consumer>
         {({atk: hlAtk, def: hlDef, setHighlight}) => (
-          <td className={styles.effect}
+          <td className={classnames(styles.effect, {
+            [styles.highlighted]: atk === hlAtk || def === hlDef })}
             onMouseEnter={event => this.handleHover(setHighlight, event)}
-            style={{ backgroundColor: atk === hlAtk || def === hlDef ? '#ccc' : 'transparent'}}
             >{effect(atk, def)}</td>
         )}
       </HighlightContext.Consumer>
@@ -56,6 +61,8 @@ class EffectDisplay extends Component {
   }
 }
 
+const AtkTypeName = getTypeName('atk');
+const DefTypeName = getTypeName('def');
 const AtkType = ({type: atk}) => (<tr>
   <AtkTypeName type={atk}></AtkTypeName>
   {types.map(def => (<EffectDisplay key={def}
@@ -70,10 +77,8 @@ export default class PokeTypes extends Component {
       atk: undefined,
       def: undefined,
       setHighlight: (atk, def) => {
-        this.state.highlight.atk = atk;
-        this.state.highlight.def = def;
         this.setState({
-          highlight: this.state.highlight
+          highlight: { ...this.state.highlight, atk, def }
         })
       }
     }
