@@ -77,9 +77,9 @@ export default class PokeTypes extends Component {
       atk: undefined,
       def: undefined,
       setHighlight: (atk, def) => {
-        this.setState({
-          highlight: { ...this.state.highlight, atk, def }
-        })
+        this.setState(state => ({
+          highlight: { ...state.highlight, atk, def }
+        }))
       }
     }
   }
