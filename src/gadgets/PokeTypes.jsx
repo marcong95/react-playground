@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
+import PropTypes from 'prop-types'
 import styles from './PokeTypes.module.styl'
 
 import pokeTypes from '../data/pokeTypes.yaml'
@@ -29,56 +30,77 @@ const HighlightContext = React.createContext({
   setHighlight: () => {}
 })
 
-const getTypeName = side =>
-  ({type}) => (
-    <HighlightContext.Consumer>
-      {highlight => (
-        <th className={classnames(styles[`${side}Type`],
-          { [styles.highlighted]: type === highlight[side] })}
-          style={{ color: pokeTypeColors[type] }}
-          >{formatTypeName(type)}</th>
-      )}
-    </HighlightContext.Consumer>
-  )
+const getTypeName = side => ({type}) => (
+  <HighlightContext.Consumer>
+    {highlight => (
+      <th className={classnames(styles[`${side}Type`],
+        { [styles.highlighted]: type === highlight[side] })}
+        style={{ color: pokeTypeColors[type] }}
+        >{formatTypeName(type)}</th>
+    )}
+  </HighlightContext.Consumer>
+)
 
 class EffectDisplay extends Component {
   render = () => {
     const {atk, def} = this.props
     return (
       <HighlightContext.Consumer>
-        {({atk: hlAtk, def: hlDef, setHighlight}) => (
+        {({atk: hlAtk, def: hlDef, setHighlight, setPicked}) => (
           <td className={classnames(styles.effect, {
             [styles.highlighted]: atk === hlAtk || def === hlDef })}
-            onMouseEnter={event => this.handleHover(setHighlight, event)}
+            onMouseEnter={e => this.handleHover(setHighlight, e)}
+            onClick={e => this.handleClick(setPicked, e)}
             >{effect(atk, def)}</td>
         )}
       </HighlightContext.Consumer>
     )
   }
 
-  handleHover = (setHighlight, event) => {
+  handleHover = (setHighlight, e) => {
     setHighlight(this.props.atk, this.props.def)
+  }
+
+  handleClick = (setPicked, e) => {
+    setPicked(this.props.def)
   }
 }
 
 const AtkTypeName = getTypeName('atk');
 const DefTypeName = getTypeName('def');
-const AtkType = ({type: atk}) => (<tr>
+const AtkType = ({type: atk, toTypes}) => (<tr>
   <AtkTypeName type={atk}></AtkTypeName>
-  {types.map(def => (<EffectDisplay key={def}
+  {toTypes.map(def => (<EffectDisplay key={def}
     {...{atk, def}}></EffectDisplay>))}
 </tr>)
 
 export default class PokeTypes extends Component {
   static contextType = HighlightContext
+  static propTypes = {
+    atkTypes: PropTypes.arrayOf(PropTypes.string),
+    defTypes: PropTypes.arrayOf(PropTypes.string)
+  }
+  static defaultProps = {
+    atkTypes: types,
+    defTypes: types
+  }
 
   state = {
     highlight: {
       atk: undefined,
       def: undefined,
+      picked: [],
       setHighlight: (atk, def) => {
         this.setState(state => ({
           highlight: { ...state.highlight, atk, def }
+        }))
+      },
+      setPicked: def => {
+        this.setState(state => ({
+          highlight: {
+            ...state.highlight,
+            picked: this.state.highlight.picked.concat(def).slice(-2)
+          }
         }))
       }
     }
@@ -105,13 +127,15 @@ export default class PokeTypes extends Component {
                     strokeWidth="5"/>
                 </svg>
               </th>
-              {types.map(t => (<DefTypeName key={t}
+              {this.props.defTypes.map(t => (<DefTypeName key={t}
                 type={t}></DefTypeName>))}
             </tr>
-            {types.map(t => (<AtkType key={t}
+            {this.props.atkTypes.map(t => (<AtkType key={t}
+              toTypes={this.props.defTypes}
               type={t}></AtkType>))}
           </tbody>
         </table>
+        <p>Picked: {this.state.highlight.picked.join(', ')}</p>
       </HighlightContext.Provider>
     </div>
   )
