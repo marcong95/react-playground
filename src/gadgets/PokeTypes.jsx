@@ -90,7 +90,21 @@ export default class PokeTypes extends Component {
         <table className={styles.pokeTypeTable}>
           <tbody>
             <tr>
-              <th></th>
+              <th className={styles.slashedHeader}>
+                <svg xmlns="http://www.w3.org/2000/svg"
+                  version="1.1"
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 460 140"
+                  preserveAspectRatio="none">
+                  <line x1="0"
+                    y1="0"
+                    x2="460"
+                    y2="140"
+                    stroke="currentColor"
+                    strokeWidth="5"/>
+                </svg>
+              </th>
               {types.map(t => (<DefTypeName key={t}
                 type={t}></DefTypeName>))}
             </tr>
