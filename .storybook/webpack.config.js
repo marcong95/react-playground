@@ -6,7 +6,7 @@ const requiredExtensions = ['styl', 'yaml']
 const testRegex = re =>
   _.some(requiredExtensions, ext => re.source.includes(ext));
 
-module.exports = (baseConfig, env, defaultConfig) => {
+module.exports = async ({ config, mode }) => {
   const rules = projectConfig.module.rules
   const { oneOf: targetRules } = rules.find(rule => rule.oneOf !== undefined)
   const requiredRules = targetRules.filter(rule => {
@@ -19,11 +19,11 @@ module.exports = (baseConfig, env, defaultConfig) => {
     }
   })
 
-  defaultConfig.module.rules.push(...requiredRules.map(
+  config.module.rules.push(...requiredRules.map(
     rule => Object.assign({
       include: path.resolve(__dirname, '../src')
     }, rule)
   ))
 
-  return defaultConfig
+  return config
 }
