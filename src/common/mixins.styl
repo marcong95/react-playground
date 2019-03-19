@@ -29,3 +29,14 @@ scrollbar-y(size, bg, thumb, radius)
   &::-webkit-scrollbar-button:decrement
   &::-webkit-scrollbar-button:increment
     display none
+
+link-click-effect(baseColor, amount = 10%)
+  color baseColor
+  border-bottom 1px dashed baseColor
+  text-decoration none
+
+  &:hover
+    border-bottom 1px solid baseColor
+
+  &:active
+    border-bottom 1px dashed darken(baseColor, amount)

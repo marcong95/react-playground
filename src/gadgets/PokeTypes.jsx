@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
+
 import styles from './PokeTypes.module.styl'
 
 import pokeTypes from '../data/pokeTypes.yaml'
@@ -46,11 +47,11 @@ class EffectDisplay extends Component {
     const {atk, def} = this.props
     return (
       <HighlightContext.Consumer>
-        {({atk: hlAtk, def: hlDef, setHighlight, setPicked}) => (
+        {({atk: hlAtk, def: hlDef, setHighlight, pick}) => (
           <td className={classnames(styles.effect, {
             [styles.highlighted]: atk === hlAtk || def === hlDef })}
             onMouseEnter={e => this.handleHover(setHighlight, e)}
-            onClick={e => this.handleClick(setPicked, e)}
+            onClick={e => this.handleClick(pick, e)}
             >{effect(atk, def)}</td>
         )}
       </HighlightContext.Consumer>
@@ -61,8 +62,8 @@ class EffectDisplay extends Component {
     setHighlight(this.props.atk, this.props.def)
   }
 
-  handleClick = (setPicked, e) => {
-    setPicked(this.props.def)
+  handleClick = (pick, e) => {
+    pick(this.props.def)
   }
 }
 
@@ -95,7 +96,7 @@ export default class PokeTypes extends Component {
           highlight: { ...state.highlight, atk, def }
         }))
       },
-      setPicked: def => {
+      pick: def => {
         this.setState(state => ({
           highlight: {
             ...state.highlight,
@@ -135,12 +136,28 @@ export default class PokeTypes extends Component {
               type={t}></AtkType>))}
           </tbody>
         </table>
-        <p>Picked: {this.state.highlight.picked.join(', ')}</p>
+        <p>
+          <span>Picked: {this.state.highlight.picked.length > 0
+            ? this.state.highlight.picked.join(', ')
+            : (<span className={styles.placeholder}>NOTHING PICKED</span>)}</span>
+          <a href="javascript:;"
+            className={styles.clearBtn}
+            onClick={this.clearPicked}>CLEAR</a>
+        </p>
       </HighlightContext.Provider>
     </div>
   )
 
   downplay = () => {
     this.state.highlight.setHighlight(undefined, undefined)
+  }
+
+  clearPicked = () => {
+    this.setState(state => ({
+      highlight: {
+        ...state.highlight,
+        picked: []
+      }
+    }))
   }
 }

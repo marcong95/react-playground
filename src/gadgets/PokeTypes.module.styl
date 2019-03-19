@@ -1,3 +1,5 @@
+@import '../common/mixins'
+
 .pokeTypeTable
   border-spacing 0
 
@@ -11,7 +13,6 @@
 
 .slashedHeader
   position relative
-  font-size 8px
   font-weight normal
 
   svg
@@ -21,17 +22,24 @@
     width 100%
     height 100%
 
+  &::before,
+  &::after
+    font-size 20px
+    transform scale(0.5)
+
   &::before
+    content "ATK"
     position absolute
     left 0
     bottom 0
-    content "ATK"
+    transform-origin bottom left
 
   &::after
+    content "DEF"
     position absolute
     top 0
     right 0
-    content "DEF"
+    transform-origin top right
 
 .atkType
   @extend .type
@@ -49,3 +57,13 @@
 
 .highlighted
   background-color #eee
+
+.placeholder
+  color #999
+  font-size 12px
+  font-style italic
+
+.clearBtn
+  link-click-effect(#999)
+  font-size 14px
+  margin-left 0.5em
