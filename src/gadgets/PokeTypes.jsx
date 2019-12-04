@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
+import { uniq } from 'lodash'
 
 import styles from './PokeTypes.module.styl'
 
@@ -100,7 +101,7 @@ export default class PokeTypes extends Component {
         this.setState(state => ({
           highlight: {
             ...state.highlight,
-            picked: this.state.highlight.picked.concat(def).slice(-2)
+            picked: uniq(this.state.highlight.picked.concat(def)).slice(-2)
           }
         }))
       }
@@ -137,11 +138,12 @@ export default class PokeTypes extends Component {
           </tbody>
         </table>
         <p>
-          <span>Picked: {this.state.highlight.picked.length > 0
+          <span>Picked DEF Types: {this.state.highlight.picked.length > 0
             ? this.state.highlight.picked.join(', ')
-            : (<span className={styles.placeholder}>NOTHING PICKED</span>)}</span>
-          <a href="javascript:;"
-            className={styles.clearBtn}
+            : (<span className={styles.placeholder}>NOTHING PICKED</span>)
+          }</span>
+          <a className={styles.clearBtn}
+            href="javascript:;"
             onClick={this.clearPicked}>CLEAR</a>
         </p>
       </HighlightContext.Provider>
