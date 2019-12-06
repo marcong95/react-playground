@@ -48,7 +48,8 @@ export default class App extends Component {
             {new Array(5).fill(null).map((_v, idx) => (
               <div className={styles.article}
                 key={idx}>
-                <h2 className={styles.title}>An article</h2>
+                <h2 className={styles.title}
+                  style={theme.typographyStyles.title}>An article</h2>
                 <hr className={styles.seperator} />
                 <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Saepe inventore exercitationem molestias ipsa optio voluptas facilis nisi. Praesentium, quaerat quisquam fugit sunt velit, fugiat a doloribus repudiandae iste reprehenderit minus.</p>
                 <p>At rem maiores quisquam incidunt ea consequuntur reprehenderit perferendis dolore quas sint blanditiis tempore, sunt assumenda deleniti dolorem aut culpa quae deserunt, eum vel nostrum neque natus iure qui? Vero.</p>
