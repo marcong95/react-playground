@@ -23,7 +23,6 @@ const decode = (input, seperator = ';') => {
   }
   return list.concat(itemChars.join(''))
 }
-window._decode = decode
 
 const encode = (input, seperator = ';') => {
   const replaceRegex = new RegExp(seperator, 'g')
